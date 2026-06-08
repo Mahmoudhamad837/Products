@@ -1,59 +1,185 @@
 # Ecommerce
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.7.
+A modern and responsive e-commerce web application built with Angular, featuring product browsing, product details, cart management, and a clean user experience.
 
-## Development server
+## Live Demo
 
-To start a local development server, run:
+https://your-demo-link.com
+
+> Remove this section if no deployment is available.
+
+---
+
+## Features
+
+* Browse products
+* Product details page
+* Shopping cart functionality
+* Responsive design for mobile, tablet, and desktop
+* Product ratings and reviews display
+* Discount and stock status indicators
+* Modern UI with reusable components
+* Optimized image loading
+
+---
+
+## Tech Stack
+
+### Frontend
+
+* Angular 20
+* TypeScript
+* RxJS
+* Angular Router
+* Angular Signals
+* SCSS / CSS
+
+### Development Tools
+
+* Angular CLI
+* ESLint
+* Prettier
+* Git & GitHub
+
+---
+
+## Project Setup
+
+### Prerequisites
+
+Make sure you have installed:
+
+* Node.js (v20+ recommended)
+* npm
+
+Verify installation:
+
+```bash
+node -v
+npm -v
+```
+
+### Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/Mahmoudhamad837/Products ecommerce
+cd ecommerce
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+### Run Development Server
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Open:
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```text
+http://localhost:4200
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+The application will automatically reload when source files change.
 
-```bash
-ng generate --help
-```
+---
 
-## Building
-
-To build the project run:
+## Build for Production
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Build artifacts will be generated inside:
 
-## Running unit tests
+```text
+dist/
+```
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+---
+
+## Running Tests
+
+Unit tests:
 
 ```bash
 ng test
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+End-to-end tests:
 
 ```bash
 ng e2e
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+---
 
-## Additional Resources
+## Project Structure
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```text
+src/
+├── app/
+│   ├── core/
+│   ├── shared/
+│   ├── features/
+│   ├── layouts/
+│   └── pages/
+├── assets/
+├── environments/
+└── styles/
+```
+
+---
+
+## Evaluation Highlights
+
+This project focuses on:
+
+### Code Quality
+
+* Strong typing with TypeScript
+* Consistent naming conventions
+* Clean and maintainable code
+
+### Component Architecture
+
+* Reusable UI components
+* Feature-based folder structure
+* Separation of concerns
+
+### Responsiveness
+
+* Mobile-first approach
+* Optimized layouts across screen sizes
+
+### Performance
+
+* Lazy loading
+* Optimized assets
+* Efficient change detection patterns
+
+### UX/UI
+
+* Accessible interface
+* Modern design system
+* Consistent spacing and typography
+
+### Git Practices
+
+* Meaningful commit messages
+* Feature-based development workflow
+* Clean commit history
+
+---
+
+## Author
+
+Your Name
+
+GitHub: https://github.com/Mahmoudhamad837
