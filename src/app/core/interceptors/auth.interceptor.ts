@@ -3,7 +3,7 @@ import {
 } from '@angular/common/http';
 
 import { inject } from '@angular/core';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { TokenStorageService } from '../../features/auth/services/token-storage.service';
 
 

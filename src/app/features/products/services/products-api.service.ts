@@ -22,7 +22,7 @@ import {
 
 import {
   environment,
-} from '../../../environments/environment';
+} from '../../../../environments/environment';
 
 export interface ProductsQuery {
   search?: string;
