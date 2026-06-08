@@ -6,7 +6,16 @@ A modern and responsive e-commerce web application built with Angular, featuring
 
 https://products-olive-seven.vercel.app/
 
-> Remove this section if no deployment is available.
+---
+
+---
+## Postman Links
+BaseUrl = https://dummyjson.com
+Products = https://dummyjson.com/products
+Products With Search = https://dummyjson.com/products/search?q=search_phrase
+Products With Category = https://dummyjson.com/products/category/category_name
+Categories = https://dummyjson.com/products/category-list
+
 
 ---
 
