@@ -1,0 +1,90 @@
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, inject, signal } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, ActivatedRoute, RouterLink } from '@angular/router';
+import { finalize } from 'rxjs';
+import { AuthService } from '../../services/auth.service';
+
+@Component({
+  selector: 'app-register',
+  imports: [
+    ReactiveFormsModule,
+    RouterLink,
+  ],
+  templateUrl: './register.html',
+  styleUrl: './register.css',
+})
+export class Register {
+private readonly formBuilder = inject(FormBuilder);
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
+
+  protected readonly isSubmitting = signal(false);
+  protected readonly serverError =
+    signal<string | null>(null);
+
+  protected readonly form =
+    this.formBuilder.nonNullable.group({
+      username: [
+        '',
+        [Validators.required]
+      ],
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.email,
+        ],
+      ],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(6),
+        ],
+      ],
+      confirmPassword: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(6),
+        ],
+      ],
+    });
+
+  protected submit(): void {
+    this.serverError.set(null);
+
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    this.isSubmitting.set(true);
+
+    this.authService
+      .register(this.form.getRawValue())
+      .pipe(
+        finalize(() => {
+          this.isSubmitting.set(false);
+        }),
+      )
+      .subscribe({
+        next: () => {
+          const returnUrl =
+            this.route.snapshot.queryParamMap.get(
+              'returnUrl',
+            ) ?? '/products';
+
+          void this.router.navigateByUrl(returnUrl);
+        },
+        error: (error: HttpErrorResponse) => {
+          this.serverError.set(
+            error.error?.message ??
+              'Unable to log in. Check your credentials.',
+          );
+        },
+      });
+  }
+}

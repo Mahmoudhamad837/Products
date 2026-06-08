@@ -1,0 +1,255 @@
+<section class="product-page">
+    <a class="back-link" routerLink="/products">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m15 18-6-6 6-6" />
+        </svg>
+
+        <span>
+            Back to products
+        </span>
+    </a>
+
+    @if (errorMessage()) {
+    <div class="state-message error-state">
+        <h1>
+            Product not found
+        </h1>
+
+        <p>
+            {{ errorMessage() }}
+        </p>
+
+        <app-button variant="outline" ariaLabel="Return to products">
+            <a class="button-link" routerLink="/products">
+                Return to products
+            </a>
+        </app-button>
+    </div>
+    } @else if (product(); as currentProduct) {
+    <div class="product-layout">
+        <section class="gallery" aria-label="Product images">
+            <div class="main-image-wrapper">
+                <img class="main-image" [src]="displayedImage()" [alt]="currentProduct.title" />
+
+                @if (
+                currentProduct.discountPercentage > 0
+                ) {
+                <span class="discount-badge">
+                    -
+                    {{
+                    currentProduct.discountPercentage
+                    | number: '1.0-0'
+                    }}%
+                </span>
+                }
+            </div>
+
+            @if (
+            currentProduct.images.length > 1
+            ) {
+            <div class="thumbnails">
+                @for (
+                image of currentProduct.images;
+                track image
+                ) {
+                <button class="thumbnail-button" type="button" [class.active]="
+                  displayedImage() === image
+                " [attr.aria-label]="
+                  'Show image of ' +
+                  currentProduct.title
+                " (click)="selectImage(image)">
+                    <img [src]="image" [alt]="currentProduct.title" />
+                </button>
+                }
+            </div>
+            }
+        </section>
+
+        <section class="product-info">
+            <p class="category">
+                {{ currentProduct.category }}
+            </p>
+
+            <h1>
+                {{ currentProduct.title }}
+            </h1>
+
+            <div class="rating-row">
+                <span class="star">
+                    ★
+                </span>
+
+                <strong>
+                    {{
+                    currentProduct.rating
+                    | number: '1.1-1'
+                    }}
+                </strong>
+
+                <span class="rating-label">
+                    Customer rating
+                </span>
+            </div>
+
+            <div class="price-row">
+                <strong class="current-price">
+                    {{
+                    discountedPrice()
+                    | currency: 'EGP'
+                    }}
+                </strong>
+
+                @if (
+                currentProduct.discountPercentage > 0
+                ) {
+                <span class="original-price">
+                    {{
+                    currentProduct.price
+                    | currency: 'EGP'
+                    }}
+                </span>
+                }
+            </div>
+
+            <p class="description">
+                {{ currentProduct.description }}
+            </p>
+
+            <dl class="product-meta">
+                @if (currentProduct.brand) {
+                <div>
+                    <dt>
+                        Brand
+                    </dt>
+
+                    <dd>
+                        {{ currentProduct.brand }}
+                    </dd>
+                </div>
+                }
+
+                @if (currentProduct.sku) {
+                <div>
+                    <dt>
+                        SKU
+                    </dt>
+
+                    <dd>
+                        {{ currentProduct.sku }}
+                    </dd>
+                </div>
+                }
+
+                <div>
+                    <dt>
+                        Availability
+                    </dt>
+
+                    <dd [class.in-stock]="
+                !isOutOfStock()
+              " [class.out-of-stock]="
+                isOutOfStock()
+              ">
+                        {{
+                        currentProduct.availabilityStatus
+                        }}
+                    </dd>
+                </div>
+            </dl>
+
+            @if (currentProduct.tags?.length) {
+            <div class="tags">
+                @for (
+                tag of currentProduct.tags;
+                track tag
+                ) {
+                <span>
+                    {{ tag }}
+                </span>
+                }
+            </div>
+            }
+
+            <div class="purchase-panel">
+                <div class="quantity-wrapper">
+                    <span class="quantity-label">
+                        Quantity
+                    </span>
+
+                    <div class="quantity-control">
+                        <button type="button" aria-label="Decrease quantity" [disabled]="quantity() <= 1"
+                            (click)="decreaseQuantity()">
+                            −
+                        </button>
+
+                        <span>
+                            {{ quantity() }}
+                        </span>
+
+                        <button type="button" aria-label="Increase quantity" [disabled]="
+                  quantity() >=
+                  currentProduct.stock
+                " (click)="increaseQuantity()">
+                            +
+                        </button>
+                    </div>
+                </div>
+
+                <app-button size="large" [disabled]="isOutOfStock()" [ariaLabel]="
+              'Add ' +
+              currentProduct.title +
+              ' to cart'
+            " (buttonClick)="
+              addProductToCart()
+            ">
+                    <svg button-icon viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 5v14M5 12h14" />
+                    </svg>
+
+                    Add to cart
+                </app-button>
+            </div>
+
+            <div class="service-info">
+                @if (
+                currentProduct.shippingInformation
+                ) {
+                <p>
+                    <strong>
+                        Shipping:
+                    </strong>
+
+                    {{
+                    currentProduct.shippingInformation
+                    }}
+                </p>
+                }
+
+                @if (
+                currentProduct.warrantyInformation
+                ) {
+                <p>
+                    <strong>
+                        Warranty:
+                    </strong>
+
+                    {{
+                    currentProduct.warrantyInformation
+                    }}
+                </p>
+                }
+
+                @if (currentProduct.returnPolicy) {
+                <p>
+                    <strong>
+                        Returns:
+                    </strong>
+
+                    {{ currentProduct.returnPolicy }}
+                </p>
+                }
+            </div>
+        </section>
+    </div>
+    }
+</section>

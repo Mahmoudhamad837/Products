@@ -1,0 +1,61 @@
+<section class="products-section">
+    <header class="section-header">
+        <div>
+            <p class="eyebrow">
+                Our collection
+            </p>
+
+            <h1>
+                Explore products
+            </h1>
+
+            <p class="description">
+                Discover our latest products
+                and exclusive offers.
+            </p>
+        </div>
+    </header>
+
+    <app-product-filter [categories]="categories()" (filtersChange)="
+      applyFilters($event)
+    " />
+
+    @if (errorMessage()) {
+    <div class="state-message
+        error-state">
+        <p>
+            {{ errorMessage() }}
+        </p>
+
+        <button type="button" (click)="loadProducts()">
+            Try again
+        </button>
+    </div>
+    } @else {
+    <div class="products-grid">
+        @for (
+        product of products();
+        track product.id
+        ) {
+        <app-product-card [product]="product" (addToCart)="
+            addToCart($event)
+          " />
+        } @empty {
+        <p class="empty-message">
+            No products match the
+            selected filters.
+        </p>
+        }
+    </div>
+
+    <app-pagination [currentPage]="
+        query().page ?? 1
+      " [pageSize]="
+        query().pageSize ?? 12
+      " [totalItems]="
+        totalItems()
+      " (pageChange)="
+        changePage($event)
+      " />
+    }
+</section>

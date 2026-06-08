@@ -1,0 +1,89 @@
+<article class="product-card">
+    <div class="image-wrapper">
+        <a class="image-link" [routerLink]="['/products', product().id]" [attr.aria-label]="'Open ' + product().title">
+            <img class="product-image" [src]="product().thumbnail" [alt]="product().title" loading="lazy" />
+        </a>
+
+        @if (product().discountPercentage) {
+        <span class="discount-badge">
+            -{{ product().discountPercentage | number:'1.0-0' }}%
+        </span>
+        }
+
+        @if (product().availabilityStatus == "Out Of Stock") {
+        <span class="stock-badge">
+            Out of stock
+        </span>
+        }
+
+        <button class="favorite-button" type="button" [attr.aria-label]="'Add ' + product().title + ' to favorites'">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5
+          5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5
+          5.5 0 0 0-.1-7.8Z" />
+            </svg>
+        </button>
+    </div>
+
+    <div class="product-content">
+        @if (product().category) {
+        <p class="category">
+            {{ product().category }}
+        </p>
+        }
+
+        <a class="product-name" [routerLink]="['/products', product().id]">
+            {{ product().title }}
+        </a>
+
+        @if (product().rating) {
+        <div class="rating" [attr.aria-label]="
+          product().rating +
+          ' out of 5 stars'
+        ">
+            <span class="star">★</span>
+
+            <span>
+                {{ product().rating | number: '1.1-1' }}
+            </span>
+
+            @if (reviewCount()) {
+            <span class="reviews">
+                ({{ reviewCount() }})
+            </span>
+            }
+        </div>
+        }
+
+        <div class="card-bottom">
+            <div class="price-wrapper">
+                @if (product().discountPercentage) {
+                <span class="current-price">
+                    {{
+                    (product().price - (product().price * product().discountPercentage) / 100) | currency: 'EGP ' :
+                    'symbol' : '1.0-0'
+                    }}
+                </span>
+                }
+
+                <span class="original-price">
+                    {{ product().price | currency: 'EGP ' : 'symbol' : '1.0-0' }}
+                </span>
+            </div>
+
+            <app-button size="small" [disabled]="
+    product().availabilityStatus ===
+    'Out Of Stock'
+  " [ariaLabel]="
+    'Add ' + product().title + ' to cart'
+  " (buttonClick)="addProductToCart()">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M3 4h2l2.4 10.2a2 2 0 0 0 2 1.6h7.9a2 2 0 0 0 1.9-1.4L21 8H7" />
+                    <circle cx="10" cy="20" r="1" />
+                    <circle cx="18" cy="20" r="1" />
+                </svg>
+
+            </app-button>
+        </div>
+    </div>
+</article>
