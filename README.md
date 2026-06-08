@@ -23,13 +23,19 @@ Categories = https://dummyjson.com/products/category-list
 
 * Browse products
 * Product details page
-* Shopping cart functionality
 * Responsive design for mobile, tablet, and desktop
-* Product ratings and reviews display
+* Product ratings display
 * Discount and stock status indicators
 * Modern UI with reusable components
 * Optimized image loading
+* Login and Signup functionality
+---
 
+## Login Credentials
+you can use one of the users specified in this url ==> https://dummyjson.com/users
+for example:
+username = emilys
+password = emilyspass
 ---
 
 ## Tech Stack
